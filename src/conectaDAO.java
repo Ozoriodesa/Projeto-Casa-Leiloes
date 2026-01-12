@@ -1,8 +1,5 @@
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
+
 
 
 
@@ -15,19 +12,22 @@ import javax.swing.JOptionPane;
  *
  * @author Adm
  */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class conectaDAO {
     
-    public Connection connectDB(){
-        Connection conn = null;
-        
+    private static final String URL = "jdbc:mysql://localhost:3306/casa_leiloes?useSSL=false&serverTimezone=UTC";
+    private static final String USER = "root";
+    private static final String PASSWORD = "ozorioSenac25@";
+
+    public static Connection getConnection() {
         try {
-        
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?user=root&password=");
-            
-        } catch (SQLException erro){
-            JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            System.out.println("Erro ao conectar: " + e.getMessage());
+            return null;
         }
-        return conn;
     }
-    
 }
