@@ -9,19 +9,44 @@
  */
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.SQLException;
 
 
-public class ProdutosDAO {
-    
-    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
-    
-    public ArrayList<ProdutosDTO> listarProdutos(){
-        
-        return listagem;
+public class ProdutosDAO{
+
+public ArrayList<ProdutosDTO> listarProdutos() {
+
+    ArrayList<ProdutosDTO> lista = new ArrayList<>();
+    Connection con = conectaDAO.getConnection();
+
+    if (con == null) {
+        System.out.println("Conexão NULL na listagem");
+        return lista;
     }
+
+    try {
+        String sql = "SELECT * FROM produtos";
+        PreparedStatement pst = con.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            ProdutosDTO p = new ProdutosDTO();
+            p.setId(rs.getInt("id"));
+            p.setNome(rs.getString("nome"));
+            p.setValor(rs.getDouble("valor"));
+            p.setStatus(rs.getString("status"));
+            lista.add(p);
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Erro ao listar: " + e.getMessage());
+    }
+
+    return lista;
+}
     
     
     public boolean cadastrarProduto(ProdutosDTO produto) {
@@ -47,9 +72,7 @@ public class ProdutosDAO {
         return false;
     }
 }
-
-    
-
 }
+
     
 
