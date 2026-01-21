@@ -47,7 +47,6 @@ import java.sql.SQLException;
             return lista;
         }
 
-
         public boolean cadastrarProduto(ProdutosDTO produto) {
 
             Connection con = conectaDAO.getConnection();
@@ -89,7 +88,31 @@ import java.sql.SQLException;
             }
         }
        
-         
+        public ArrayList<ProdutosDTO> listarProdutosVendidos() {
+            
+            ArrayList<ProdutosDTO> lista = new ArrayList<>();
+            String sql = "SELECT * FROM produtos WHERE status = 'Vendido'";
+            
+
+            try (Connection conn = conectaDAO.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    ProdutosDTO p = new ProdutosDTO();
+                    p.setId(rs.getInt("id"));
+                    p.setNome(rs.getString("nome"));
+                    p.setValor(rs.getDouble("valor"));
+                    p.setStatus(rs.getString("status"));
+                    lista.add(p); 
+                }
+
+            } catch (SQLException e) {
+                System.out.println("Erro ao listar produtos vendidos: " + e.getMessage());
+            }
+
+            return lista;
+        }
         
       
     }
