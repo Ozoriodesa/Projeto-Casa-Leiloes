@@ -18,7 +18,7 @@ import java.sql.SQLException;
 
 public class conectaDAO {
     
-    private static final String URL = "jdbc:mysql://localhost:3306/casa_leiloes?useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://localhost:3306/casa_leiloes?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASSWORD = "ozorioSenac25@";
 
