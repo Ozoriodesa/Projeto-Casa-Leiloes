@@ -158,10 +158,13 @@ public class cadastroVIEW extends javax.swing.JFrame {
         
         if (sucesso) {
         JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
-    } else {
-        JOptionPane.showMessageDialog(this, "Erro ao cadastrar!");
-    }
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar!");
+        }
         
+        // limpar
+        cadastroNome.setText("");
+        cadastroValor.setText("");
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
